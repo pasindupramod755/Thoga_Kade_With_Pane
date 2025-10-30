@@ -31,7 +31,7 @@
               </Label>
       
                     <!-- Sidebar Buttons -->
-              <Button fx:id="btnHome" layoutX="27.0" layoutY="191.0" onAction="#btnHomeAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="🏠  Home" />
+              <Button fx:id="btnHome" disable="true" layoutX="27.0" layoutY="191.0" onAction="#btnHomeAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="🏠  Home" />
               <Button fx:id="btnCustomer" disable="true" layoutX="27.0" layoutY="257.0" onAction="#btnCustomerAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-weight: bold;" text="👥  Customer" />
               <Button fx:id="btnItem" disable="true" layoutX="27.0" layoutY="321.0" onAction="#btnItemAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="📦  Item" />
               <Button fx:id="btnSupplier" disable="true" layoutX="27.0" layoutY="379.0" onAction="#btnSupplierAction" prefHeight="40.0" prefWidth="190.0" style="-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="🚚  Supplier" />
@@ -213,7 +213,7 @@
             <Button layoutX="842.0" layoutY="658.0" onAction="#btnEmployeeResetAction" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: linear-gradient(to right, #6a11cb, #b721ff);; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Reset" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="loginPane" layoutX="363.0" layoutY="72.0" prefHeight="591.0" prefWidth="1008.0" visible="false">
+      <AnchorPane fx:id="loginPane" layoutX="363.0" layoutY="72.0" prefHeight="591.0" prefWidth="1008.0">
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#ffffff15" height="400.0" layoutX="66.0" layoutY="102.0" width="355.0">
                <effect>
@@ -254,58 +254,58 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="314.0" layoutY="114.0" prefHeight="508.0" prefWidth="1046.0">
+      <AnchorPane fx:id="accountPane" layoutX="314.0" layoutY="114.0" prefHeight="508.0" prefWidth="1046.0" visible="false">
          <children>
             <ImageView fitHeight="104.0" fitWidth="120.0" layoutX="63.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/profile.png" />
                </image>
             </ImageView>
-            <Label layoutX="180.0" layoutY="89.0" prefHeight="52.0" prefWidth="222.0" text="Hi Pasindu" textFill="WHITE">
+            <Label fx:id="changeNameLabel" layoutX="180.0" layoutY="89.0" prefHeight="52.0" prefWidth="222.0" text="Hi Pasindu" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Circle fill="#57c449" layoutX="235.0" layoutY="274.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label alignment="CENTER" layoutX="180.0" layoutY="221.0" prefHeight="104.0" prefWidth="110.0" text="113+">
+            <Circle fill="#57c449" layoutX="235.0" layoutY="275.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="customerLabel" alignment="CENTER" layoutX="180.0" layoutY="222.0" prefHeight="104.0" prefWidth="110.0" text="113+">
                <font>
                   <Font name="System Bold" size="39.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="143.0" layoutY="366.0" prefHeight="18.0" prefWidth="190.0" text="Customer" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="143.0" layoutY="367.0" prefHeight="18.0" prefWidth="190.0" text="Customer" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Circle fill="#4ac2c2" layoutX="425.0" layoutY="274.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label alignment="CENTER" layoutX="370.0" layoutY="221.0" prefHeight="104.0" prefWidth="110.0" text="113+">
+            <Circle fill="#4ac2c2" layoutX="425.0" layoutY="275.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="itemLabel" alignment="CENTER" layoutX="370.0" layoutY="222.0" prefHeight="104.0" prefWidth="110.0" text="113+">
                <font>
                   <Font name="System Bold" size="39.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="333.0" layoutY="366.0" prefHeight="18.0" prefWidth="190.0" text="Item" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="333.0" layoutY="367.0" prefHeight="18.0" prefWidth="190.0" text="Item" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Circle fill="#c24a4a" layoutX="615.0" layoutY="274.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label alignment="CENTER" layoutX="560.0" layoutY="221.0" prefHeight="104.0" prefWidth="110.0" text="113+">
+            <Circle fill="#c24a4a" layoutX="615.0" layoutY="275.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="supplierLabel" alignment="CENTER" layoutX="560.0" layoutY="222.0" prefHeight="104.0" prefWidth="110.0" text="113+">
                <font>
                   <Font name="System Bold" size="39.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="523.0" layoutY="366.0" prefHeight="18.0" prefWidth="190.0" text="Supplier" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="523.0" layoutY="367.0" prefHeight="18.0" prefWidth="190.0" text="Supplier" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Circle fill="#c1c24a" layoutX="805.0" layoutY="274.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label alignment="CENTER" layoutX="750.0" layoutY="221.0" prefHeight="104.0" prefWidth="110.0" text="113+">
+            <Circle fill="#c1c24a" layoutX="805.0" layoutY="275.0" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="employeeLabel" alignment="CENTER" layoutX="750.0" layoutY="222.0" prefHeight="104.0" prefWidth="110.0" text="113+">
                <font>
                   <Font name="System Bold" size="39.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="713.0" layoutY="366.0" prefHeight="18.0" prefWidth="190.0" text="Employee" textFill="WHITE">
+            <Label alignment="CENTER" layoutX="713.0" layoutY="367.0" prefHeight="18.0" prefWidth="190.0" text="Employee" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

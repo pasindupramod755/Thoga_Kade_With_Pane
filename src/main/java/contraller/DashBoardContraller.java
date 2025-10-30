@@ -29,6 +29,11 @@ public class DashBoardContraller{
     ObservableList<EmployeeDTO> employeeList = FXCollections.observableArrayList();
     String titleArray[] = {"Mr.","Mrs.","Miss"};
 
+
+
+    @FXML
+    private AnchorPane accountPane;
+
     @FXML
     private TableColumn<?, ?> colAddress;
 
@@ -279,11 +284,27 @@ public class DashBoardContraller{
     private Button btnLogOut;
 
     @FXML
+    private Label changeNameLabel;
+
+    @FXML
+    private Label supplierLabel;
+
+    @FXML
+    private Label itemLabel;
+
+    @FXML
+    private Label employeeLabel;
+
+    @FXML
+    private Label customerLabel;
+
+    @FXML
     void btnCustomerAction(ActionEvent event) {
         itemPane.setVisible(false);
         customerPane.setVisible(true);
         supplierPane.setVisible(false);
         employeePane.setVisible(false);
+        accountPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnEmployee.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
@@ -358,12 +379,13 @@ public class DashBoardContraller{
         customerPane.setVisible(false);
         supplierPane.setVisible(false);
         employeePane.setVisible(false);
+        accountPane.setVisible(true);
         btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnHome.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnEmployee.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnSupplier.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-
+        getCount();
 
     }
 
@@ -373,6 +395,7 @@ public class DashBoardContraller{
         customerPane.setVisible(false);
         supplierPane.setVisible(false);
         employeePane.setVisible(false);
+        accountPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnEmployee.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
@@ -429,6 +452,8 @@ public class DashBoardContraller{
         btnSupplier.setDisable(true);
         btnEmployee.setDisable(true);
         btnLogOut.setDisable(true);
+        accountPane.setVisible(false);
+        btnHome.setDisable(true);
         btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnHome.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnEmployee.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
@@ -647,6 +672,7 @@ public class DashBoardContraller{
         customerPane.setVisible(false);
         supplierPane.setVisible(true);
         employeePane.setVisible(false);
+        accountPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnEmployee.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
@@ -828,6 +854,7 @@ public class DashBoardContraller{
         customerPane.setVisible(false);
         supplierPane.setVisible(false);
         employeePane.setVisible(true);
+        accountPane.setVisible(false);
         btnCustomer.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnHome.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnEmployee.setStyle("-fx-background-color: #836fff; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
@@ -1011,6 +1038,35 @@ public class DashBoardContraller{
         }
     }
 
+    public void getCount(){
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","1234");
+            ResultSet customerResultSet = connection.prepareStatement("SELECT COUNT(*) FROM Customer").executeQuery();
+            while (customerResultSet.next()){
+                int customer = customerResultSet.getInt(1);
+                customerLabel.setText(customer+"+");
+            }
+            ResultSet itemResultSet = connection.prepareStatement("SELECT COUNT(*) FROM item").executeQuery();
+            while (itemResultSet.next()){
+                int item = itemResultSet.getInt(1);
+                itemLabel.setText(item+"+");
+            }
+            ResultSet supplierResultSet = connection.prepareStatement("SELECT COUNT(*) FROM supplier").executeQuery();
+            while (supplierResultSet.next()){
+                int supplier = supplierResultSet.getInt(1);
+                supplierLabel.setText(supplier+"+");
+            }
+            ResultSet employeeResultSet = connection.prepareStatement("SELECT COUNT(*) FROM employee").executeQuery();
+            while (employeeResultSet.next()){
+                int employee = employeeResultSet.getInt(1);
+                employeeLabel.setText(employee+"+");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
     //--------------------------------------Login From----------------------------------------->
@@ -1041,6 +1097,12 @@ public class DashBoardContraller{
             btnSupplier.setDisable(false);
             btnEmployee.setDisable(false);
             btnLogOut.setDisable(false);
+            btnHome.setDisable(false);
+            accountPane.setVisible(true);
+            changeNameLabel.setText("Hi "+txtUserName.getText());
+            txtUserName.clear();
+            txtPassword.clear();
+            getCount();
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
