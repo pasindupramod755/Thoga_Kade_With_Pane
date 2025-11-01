@@ -455,43 +455,61 @@ public class DashBoardContraller{
     }
 
     public void btnCustomerAddAction(ActionEvent actionEvent) {
-        String id = txtId.getText();
-        String title = txtTitle.getValue();
-        String name = txtName.getText();
-        String dob = String.valueOf(txtDate.getValue());
-        Double salary = Double.valueOf(txtSalary.getText());
-        String city = txtCity.getText();
-        String province = txtProvince.getText();
-        String postalCode = txtpostalCode.getText();
-        String address = txtAddress.getText();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","1234");
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?,?)");
-            preparedStatement.setString(1,id);
-            preparedStatement.setString(2,title);
-            preparedStatement.setString(3,name);
-            preparedStatement.setString(4,dob);
-            preparedStatement.setDouble(5,salary);
-            preparedStatement.setString(6,address);
-            preparedStatement.setString(7,city);
-            preparedStatement.setString(8,province);
-            preparedStatement.setString(9,postalCode);
-            int i = preparedStatement.executeUpdate();
+        if (
+                txtId.getText().isEmpty() ||
+                        txtTitle.getValue() == null ||
+                        txtName.getText().isEmpty() ||
+                        txtDate.getValue() == null ||
+                        txtSalary.getText().isEmpty() ||
+                        txtCity.getText().isEmpty() ||
+                        txtProvince.getText().isEmpty() ||
+                        txtpostalCode.getText().isEmpty() ||
+                        txtAddress.getText().isEmpty()
+        ) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all fields before proceeding!").show();
+            return;
+        }else{
+            String id = txtId.getText();
+            String title = txtTitle.getValue();
+            String name = txtName.getText();
+            String dob = String.valueOf(txtDate.getValue());
+            Double salary = Double.valueOf(txtSalary.getText());
+            String city = txtCity.getText();
+            String province = txtProvince.getText();
+            String postalCode = txtpostalCode.getText();
+            String address = txtAddress.getText();
 
-            if (i>0){
-                new Alert(Alert.AlertType.INFORMATION, "Customer Added successfully!").show();
-                customerObservable.add(new CustomerDTO(id,title,name,dob,salary,address,city,province,postalCode));
-                tblCustomer.refresh();
 
-            }else {
-                new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","1234");
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?,?)");
+                preparedStatement.setString(1,id);
+                preparedStatement.setString(2,title);
+                preparedStatement.setString(3,name);
+                preparedStatement.setString(4,dob);
+                preparedStatement.setDouble(5,salary);
+                preparedStatement.setString(6,address);
+                preparedStatement.setString(7,city);
+                preparedStatement.setString(8,province);
+                preparedStatement.setString(9,postalCode);
+                int i = preparedStatement.executeUpdate();
+
+                if (i>0){
+                    new Alert(Alert.AlertType.INFORMATION, "Customer Added successfully!").show();
+                    customerObservable.add(new CustomerDTO(id,title,name,dob,salary,address,city,province,postalCode));
+                    tblCustomer.refresh();
+
+                }else {
+                    new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
+                }
+
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+                throw new RuntimeException(e);
             }
-
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
-            throw new RuntimeException(e);
         }
+
     }
 
     public void btnCustomerDeleteAction(ActionEvent actionEvent) {
@@ -515,44 +533,58 @@ public class DashBoardContraller{
     }
 
     public void btnCustomerUpdateAction(ActionEvent actionEvent) {
-        CustomerDTO dto = tblCustomer.getSelectionModel().getSelectedItem();
+        if (
+                txtId.getText().isEmpty() ||
+                        txtTitle.getValue() == null ||
+                        txtName.getText().isEmpty() ||
+                        txtDate.getValue() == null ||
+                        txtSalary.getText().isEmpty() ||
+                        txtCity.getText().isEmpty() ||
+                        txtProvince.getText().isEmpty() ||
+                        txtpostalCode.getText().isEmpty() ||
+                        txtAddress.getText().isEmpty()
+        ) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all fields before proceeding!").show();
+            return;
+        }else{
+            CustomerDTO dto = tblCustomer.getSelectionModel().getSelectedItem();
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","1234");
+                String sql = "UPDATE Customer SET title=?, name=?, dob=?, salary=?, address=?, city=?, province=?, postal_code=? WHERE customer_id=?";
+                PreparedStatement pstm = connection.prepareStatement(sql);
+                pstm.setString(1, txtTitle.getValue());
+                pstm.setString(2, txtName.getText());
+                pstm.setString(3, String.valueOf(txtDate.getValue()));
+                pstm.setString(4, txtSalary.getText());
+                pstm.setString(5, txtAddress.getText());
+                pstm.setString(6, txtCity.getText());
+                pstm.setString(7, txtProvince.getText());
+                pstm.setString(8, txtpostalCode.getText());
+                pstm.setString(9, txtId.getText());
+                int i = pstm.executeUpdate();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","1234");
-            String sql = "UPDATE Customer SET title=?, name=?, dob=?, salary=?, address=?, city=?, province=?, postal_code=? WHERE customer_id=?";
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setString(1, txtTitle.getValue());
-            pstm.setString(2, txtName.getText());
-            pstm.setString(3, String.valueOf(txtDate.getValue()));
-            pstm.setString(4, txtSalary.getText());
-            pstm.setString(5, txtAddress.getText());
-            pstm.setString(6, txtCity.getText());
-            pstm.setString(7, txtProvince.getText());
-            pstm.setString(8, txtpostalCode.getText());
-            pstm.setString(9, txtId.getText());
-            int i = pstm.executeUpdate();
+                if (i>0){
+                    new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
+                    dto.setId(txtId.getText());
+                    dto.setTitle(txtTitle.getValue());
+                    dto.setName(txtName.getText());
+                    dto.setDob(String.valueOf(txtDate.getValue()));
+                    dto.setCity(txtCity.getText());
+                    dto.setAddress(txtAddress.getText());
+                    dto.setProvince(txtProvince.getText());
+                    dto.setSalary(Double.valueOf(txtSalary.getText()));
+                    dto.setPostalCode(txtpostalCode.getText());
+                }else {
+                    new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
+                }
 
-            if (i>0){
-                new Alert(Alert.AlertType.INFORMATION, "Customer updated successfully!").show();
-                dto.setId(txtId.getText());
-                dto.setTitle(txtTitle.getValue());
-                dto.setName(txtName.getText());
-                dto.setDob(String.valueOf(txtDate.getValue()));
-                dto.setCity(txtCity.getText());
-                dto.setAddress(txtAddress.getText());
-                dto.setProvince(txtProvince.getText());
-                dto.setSalary(Double.valueOf(txtSalary.getText()));
-                dto.setPostalCode(txtpostalCode.getText());
-            }else {
-                new Alert(Alert.AlertType.WARNING, "Customer not found!").show();
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+                throw new RuntimeException(e);
             }
 
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
-            throw new RuntimeException(e);
+            tblCustomer.refresh();
         }
-
-        tblCustomer.refresh();
     }
 
     public void btnCustomerResetAction(ActionEvent actionEvent) {
