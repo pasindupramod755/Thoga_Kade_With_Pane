@@ -4,19 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import model.dto.CustomerDTO;
 import model.dto.EmployeeDTO;
 import model.dto.ItemDTO;
 import model.dto.SupplierDTO;
-
-import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,9 +22,6 @@ public class DashBoardContraller{
     ObservableList<SupplierDTO> supplierList = FXCollections.observableArrayList();
     ObservableList<EmployeeDTO> employeeList = FXCollections.observableArrayList();
     String titleArray[] = {"Mr.","Mrs.","Miss"};
-
-
-
     @FXML
     private AnchorPane accountPane;
 
@@ -310,8 +301,9 @@ public class DashBoardContraller{
         btnEmployee.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnItem.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
         btnSupplier.setStyle("-fx-background-color: #ffffff15; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;");
-        txtTitle.getItems().addAll(titleArray);
         customerObservable.clear();
+        txtTitle.getItems().clear();
+        txtTitle.getItems().addAll(titleArray);
         txtId.setText("");
         txtName.setText("");
         txtAddress.setText("");
@@ -367,7 +359,7 @@ public class DashBoardContraller{
                 txtTitle.setValue(txtTitle.getItems().get(0));
             } else if (newValue.getTitle().equals("Mrs.")) {
                 txtTitle.setValue(txtTitle.getItems().get(1));
-            }else if (newValue.getTitle().equals("Miss")){
+            }else if (newValue.getTitle().equals("Miss.")){
                 txtTitle.setValue(txtTitle.getItems().get(2));
             }
         });
@@ -524,7 +516,6 @@ public class DashBoardContraller{
 
     public void btnCustomerUpdateAction(ActionEvent actionEvent) {
         CustomerDTO dto = tblCustomer.getSelectionModel().getSelectedItem();
-
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","1234");
