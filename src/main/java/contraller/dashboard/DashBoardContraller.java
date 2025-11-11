@@ -1,4 +1,4 @@
-package contraller;
+package contraller.dashboard;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

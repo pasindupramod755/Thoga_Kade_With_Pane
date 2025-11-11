@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="699.0" prefWidth="1407.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="contraller.DashBoardContraller">
+<AnchorPane prefHeight="699.0" prefWidth="1407.0" style="-fx-background-color: linear-gradient(to bottom right, #1e1e2f, #2d2d44);" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="contraller.dashboard.DashBoardContraller">
 
     <children>
       <AnchorPane prefHeight="736.0" prefWidth="255.0" style="-fx-background-color: #2d3e50;">
